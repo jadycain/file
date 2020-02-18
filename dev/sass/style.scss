@@ -1,0 +1,310 @@
+//資料讀取有先後順序
+//宣告變數
+@import 'var';
+
+//宣告函式
+@import'mixins/btn';
+@import'mixins/textAlign';
+@import'mixins/rwd';
+@import'mixins/titleSize';
+
+
+//組件
+
+//layout
+@import'page/desktop';
+@import'page/medium';
+@import'page/small';
+
+//layout modules
+@import 'layout/header';
+@import 'layout/footer';
+
+//其他bootstrap套件
+
+
+//----------------------
+
+
+@mixin margin(){
+    margin: 20px;
+    padding: 20px;
+}
+
+@mixin rect($width,$height,$bgc){
+    width: $width;
+    height: $height;
+    background-color: $bgc;
+}
+
+@mixin float_Module($dir,$width:500px){
+    float: $dir;
+    width: $width;
+    height: $width*5;
+}
+
+
+//
+
+body{
+    margin: 100px;
+    padding: 20px;
+    background-color: green;
+
+    font-family: $fontFamily;
+    color: $color;
+    font-size: $fontSize;
+    @include titleSize($fontSize);
+
+    .wrapper{
+        h1{
+            padding: 0;
+            margin: 0;
+            font-size: $fontSize*3;
+            span{
+                color:rgb(85,252,1);
+                @include margin();
+            } 
+        }
+        .rect{
+            @include rect(200px,50px,yellow);
+            @include float_Module(right);
+
+        }
+    }
+}
+
+
+//按鈕
+.btn_wide{
+    @include btn(200px,8px,#fff,rgb(0,64,255),0px,10px);
+    margin:10px 0; 
+}
+
+.btn_small{
+    @include btn(100px,8px,#fff,rgb(0,64,255),0px,10px);
+    margin:10px 0; 
+}
+
+.btn_medium{
+    @include btn(150px,8px,#fff,rgb(0,64,255),0px,10px);
+    margin:10px 0; 
+}
+
+//
+.link{
+    color: rgb(0,242,16);
+    &:hover{
+        color: #fff;
+    }
+    &::before{
+        content: 'before';
+    }
+    &::after{
+        content: 'after';
+    }
+}
+
+//
+@mixin btn_class($class,$width) {
+    .#{$class}{
+        width: $width;
+        height:30px;
+        background-color: #333;
+        color: #fff;
+    }
+    
+}
+@include btn_class(btnclass,110px );
+
+
+//
+@mixin bg_image($url_files) {
+    background-image: url('./images/#{$url_files}.jpg');
+}
+.bgimages {
+    @include bg_image(pic_02);
+}
+
+//
+@mixin prefix($attr, $value) {
+    -moz-#{$attr}: $value;
+    -o-#{$attr}: $value;
+    -webkit-#{$attr}: $value;
+    #{$attr}: $value;
+}
+
+.boxs {
+    @include prefix(transition, all .5s);
+}
+
+//
+
+@mixin box-center($align) {
+    margin: 0 auto;
+    @include textAlign($align);
+}
+
+.box-center{
+    @include box-center(center);
+}
+
+//+-
+
+$num : 10;
+$num-1 : 20;
+
+.box-plus{
+    width : $num + $num-1 + px;
+    height : $num - $num-1 + px;
+    margin : $num * $num-1 + px;
+    font : round($num / $num-1) + px; //四捨五入
+    font-size : ceil($num / $num-1) + px; //無條件進位
+    font : floor( $num / $num-1 ) + px; //無條件捨去
+}
+
+//
+
+
+@mixin boxArea($marginTop) {
+    .box-area{
+
+        @if $marginTop ==20px {
+            margin-top: $marginTop;
+        }
+        @else{
+            margin-top: ($marginTop / 2)
+        }
+    }
+}
+@include boxArea(20px);
+
+//
+@mixin theme($theme) {
+    @if $theme==green{
+        body{
+            background-color: green;
+            @content
+        }
+    }
+    @else if $theme==yellow{
+        body{
+            background-color: yellow;
+            @content
+        }
+    }
+    @else if $theme==blue{
+        body{
+            background-color: blue;
+            @content
+        }
+    }
+    @else {
+        body{
+            background-color: #fff;
+            @content
+        }
+    }
+}
+
+@include theme(yellow){
+    color: #fff;
+    @include titleSize(20px);
+    .wrapper{
+        width: 1200px;
+        min-height: 300px;
+    }
+}
+
+//迴圈(有三種)
+@for $i from 1 through 100{
+    .for-#{$i}{
+        font-size : $i * 1px;
+    }
+}
+
+@mixin grid($num) {
+        @for $i from 1 through $num{
+            .col-md-#{$i}{
+                width : ($i / $num) * 100%;
+            }
+        }
+}
+
+@include grid(12);
+
+
+//迴圈
+@mixin img_bg($file,$list) {
+    @if $file == jpg{
+        @each $var in $list{
+            .img_#{$var}{
+            background-image: url('images/#{$var}.jpg');
+            }
+        }
+    }
+    @else if $file == png{
+        @each $var in $list{
+            .img_#{$var}{
+                background-image: url('images/#{$var}.png');
+            }
+        }
+    }
+    
+}
+
+@include img_bg(png, a1 a2 a3 a4 box);
+@include img_bg(jpg, b1 b2 b3 b4 jpgbox);
+
+//@while迴圈
+$a : 12;
+$b : 2;
+
+@mixin items($a , $b) {
+    @while $a > $b {
+        .item-#{$a} {
+            width: 1px * $a;
+            }
+        $a : $a - 2;
+    }
+}
+
+@include items(20,2);
+
+//
+$a : 10px;
+//map
+
+$a-map:(key1 : 10px,
+        key2 : 20px,
+        key3 : 30px
+        );
+
+$b-map:(key4 : 40px,
+        key5 : 50px
+        );
+
+$c-map:map-merge($a-map,$b-map);
+
+h1{
+    font-size: map-get($a-map,key3);
+    width: map-get($b-map,key4);
+    height: map-get($c-map,key5);
+}
+
+$vars :(num1 : 10px,
+       num2 : 20px,
+       num3 : 30px,
+       num4 : 40px
+       );
+@each $name,$num in $vars {
+    .items-#{$name} {
+        width: $num;
+    }
+}
+
+//
+
+@include title_module($titleSize);
+
+

@@ -1,0 +1,27 @@
+@mixin titleSize($fontSize){
+
+    h1{
+        font-size: ceil($fontSize*4.8)
+    };
+    h2{
+        font-size: floor($fontSize*3.2);
+    };
+    h3{
+        font-size: $fontSize*3;
+    };
+    h4{
+        font-size: $fontSize*2;
+    };
+    h5{
+        font-size: $fontSize;
+    };
+}
+
+//
+@mixin title_module($titleSize) {
+    @each $title,$value in $titleSize {
+        #{$title} {
+            font-size: $value;
+        };
+    }
+}

@@ -1,0 +1,20 @@
+$fontSize:14px;
+$color:#333;
+$bgc:rgb(190,0,0);
+$fontFamily:"微軟正黑體";
+$header-bgc:#d67777;
+$footer-bgc:blue;
+
+// rwd斷點
+$desktop : 1200px;
+$medium : 995px;
+$small : 768px;
+
+//titleSize
+$titleSize : (
+    h1 : 48px,
+    h2 : 36px,
+    h3 : 26px,
+    h4 : 18px,
+    h5 : 14px
+    );
