@@ -5,8 +5,6 @@ var fileinclude = require('gulp-file-include');
 var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 var imagemin = require('gulp-imagemin');
-var plugin1 = require('gulp-plugin1');
-var plugin2 = require('gulp-plugin2');
 var sourcemaps = require('gulp-sourcemaps');
 
 
