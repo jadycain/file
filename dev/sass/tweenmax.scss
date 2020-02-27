@@ -6,7 +6,7 @@ body {
 section {
     width: 100vw;
     height: 100vh;
-    background-color: rgb(31, 31, 31);
+    background-color: lightblue;
 }
 
 .box {
@@ -29,3 +29,10 @@ opacity: 0;
 
 }
 
+
+.section_03 {
+    transition: all 1s ease-in-out; 
+    &.on{
+        background-color: rgb(205, 104, 255);
+    }
+}

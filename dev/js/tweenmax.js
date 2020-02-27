@@ -59,6 +59,77 @@ TweenMax.to('.box4' ,2 , {
     transformPerspective: 100
 
 
+})
 
+TweenMax.to('.bezier', 2, {
+    bezier: {
+        values: [{
+                x: 0, //節點1
+                y: 0
+            },
+            {
+                x: 600,
+                y: 600
+            },
+            {
+                x: 300,
+                y: 400
+            },{
+                 x: 200,
+                 y: 100
+            }
+              
+        ],
+        autoRotate : false // 方向
+    },
+    ease : Elastic.easeOut
 
 })
+
+
+//sccrollMagic--------------------
+//加入controller
+var controller = new ScrollMagic.Controller();
+
+
+//第一個場景
+var scroll01 =  TweenMax.to('.scroll01' , 1 , {
+    x: 200,
+    y: 200
+});
+
+
+
+
+ new ScrollMagic.Scene({
+    triggerElement : '#trigger01',
+    offset : 0, //start1
+    // triggerHook: 0 // triggerHook:0會固定在最上面(trigger01)
+ }).setTween(scroll01)
+ .addIndicators() // 觸發點指標
+ .addTo(controller);
+
+
+ //第三個場景
+ var cssbox =  TweenMax.to('.scrollcss' , 1 , {
+    y: 300,
+    x: 300
+  })
+
+ new ScrollMagic.Scene({
+    triggerElement: '#trigger02',
+    triggerHook: 0
+}).setClassToggle('.section_03', 'on').setTween(cssbox).addIndicators().addTo(controller);
+
+
+//第四個場景
+var timelinemaxMv = new TimelineMax();
+
+
+timelinemaxMv.to('.stick01' , 1 , {x: 300}).to('.stick02' , 1 , {x: 300}).to('.stick03' , 1 , {x: 300});
+
+new ScrollMagic.Scene({
+    triggerElement: '#trigger03',
+    triggerHook: 0,
+    duration: '300%'
+}).setPin('.section_04').setTween(timelinemaxMv).addIndicators().addTo(controller);

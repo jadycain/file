@@ -6,7 +6,7 @@ body {
 section {
   width: 100vw;
   height: 100vh;
-  background-color: #1f1f1f;
+  background-color: lightblue;
 }
 
 .box {
@@ -25,5 +25,14 @@ section {
 } */
 .box3 {
   opacity: 0;
+}
+
+.section_03 {
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+
+.section_03.on {
+  background-color: #cd68ff;
 }
 /*# sourceMappingURL=tweenmax.css.map */
